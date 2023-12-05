@@ -10,17 +10,19 @@ on:
         default: ""
 
 jobs:
-  CreateAdmRepo:
+  create-repo:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - name: Use Node.js
         uses: actions/setup-node@v2
       - name: Creating GitHub Organization Repository
-        uses: repo-ctrl/create-repo-action@main
+        uses: f1lander/create-repository-action@v1
         id: create-repo
         with:
-          repo-name: "${{ github.event.inputs.repo-name }}"
-          org-admin-token: "${{ secrets.ORG_ADMIN_TOKEN }}"
+          name: "${{ github.event.inputs.repo-name }}"
+          org: themnd
+          private: false
+          access-token: "${{ secrets.ORG_ADMIN_TOKEN }}"
       - name: Log URL to the repo
         run: echo "The new repo is ${{ steps.create-repo.outputs.repo-url }}"
