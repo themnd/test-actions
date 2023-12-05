@@ -16,7 +16,7 @@ jobs:
       org-name: themnd
       repo-url: https://github.com/themnd/${{github.event.inputs.repo-name}}
     steps:
-      - run: echo "🎉 ${{ github.event_name }} is creating ${{env.repo-url}}."
+      - run: echo "We are about to create ${{env.repo-url}}"
       - name: Use Node.js
         uses: actions/setup-node@v3
       - name: Creating GitHub Organization Repository
@@ -25,5 +25,4 @@ jobs:
         with:
           name: "${{ github.event.inputs.repo-name }}"
           access-token: "${{ secrets.ORG_ADMIN_TOKEN }}"
-      - run: echo "🎉 https://github.com/${{env.org-name}}/${{github.event.inputs.repo-name}} has been created!"
       - run: echo "🎉 ${{env.repo-url}} has been created!"
