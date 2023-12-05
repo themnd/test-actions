@@ -21,7 +21,7 @@ jobs:
         id: create-repo
         with:
           name: "${{ github.event.inputs.repo-name }}"
-          org: themnd
+          #org: themnd
           access-token: "${{ secrets.ORG_ADMIN_TOKEN }}"
       - name: Log URL to the repo
         run: echo "The new repo is ${{ steps.create-repo.outputs.repo-url }}"
