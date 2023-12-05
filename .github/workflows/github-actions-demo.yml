@@ -15,6 +15,7 @@ jobs:
     env:
       org-name: themnd
       repo-url: https://github.com/themnd/${{github.event.inputs.repo-name}}
+      repo-git-url: git@github.com:themnd/${{github.event.inputs.repo-name}}.git
     steps:
       - run: echo "We are about to create ${{env.repo-url}}"
       - name: Use Node.js
@@ -26,3 +27,14 @@ jobs:
           name: "${{ github.event.inputs.repo-name }}"
           access-token: "${{ secrets.ORG_ADMIN_TOKEN }}"
       - run: echo "🎉 ${{env.repo-url}} has been created!"
+        #uses: actions/checkout@v4
+      - name: Checkout adm-starter-git
+        run: |
+          git clone --bare git@github.com:atex-polopoly/adm-starterkit.git
+          cd adm-starterkit
+          git push --mirror ${{ env.repo-git-url }}
+          cd ..
+          rm -rf adm-starterkit
+        #with:
+        #  repository: atex-polopoly/adm-starterkit
+        #  token: ${{ secrets.ORG_ADMIN_TOKEN }}
