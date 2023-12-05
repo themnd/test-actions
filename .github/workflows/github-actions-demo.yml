@@ -12,8 +12,12 @@ on:
 jobs:
   create-repo:
     runs-on: ubuntu-latest
+    env:
+      org-name: themnd
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🎉 ${{ github.event_name }} is creating ${{env.repo-url}}."
+        env:
+          repo-url: https://github.com/${{env.org-name}}/${{github.event.inputs.repo-name}}
       - name: Use Node.js
         uses: actions/setup-node@v3
       - name: Creating GitHub Organization Repository
@@ -21,7 +25,7 @@ jobs:
         id: create-repo
         with:
           name: "${{ github.event.inputs.repo-name }}"
-          #org: themnd
+          org: ${{env.org-name}}
           access-token: "${{ secrets.ORG_ADMIN_TOKEN }}"
-      - name: Log URL to the repo
-        run: echo "The new repo is ${{ steps.create-repo.outputs.repo-url }}"
+      - run: echo "🎉 https://github.com/${{env.org-name}}/${{github.event.inputs.repo-name}} has been created!"
+      - run: echo "🎉 ${{env.repo-url}} has been created!"
