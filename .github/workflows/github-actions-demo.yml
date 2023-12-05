@@ -1,5 +1,5 @@
 name: GitHub Actions Demo
-run-name: ${{ github.actor }} is creating ${{ github.event_name }} 🚀
+run-name: ${{ github.actor }} is creating a new repository 🚀
 
 on:
   workflow_dispatch:
@@ -14,10 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       org-name: themnd
+      repo-url: https://github.com/themnd/${{github.event.inputs.repo-name}}
     steps:
       - run: echo "🎉 ${{ github.event_name }} is creating ${{env.repo-url}}."
-        env:
-          repo-url: https://github.com/${{env.org-name}}/${{github.event.inputs.repo-name}}
       - name: Use Node.js
         uses: actions/setup-node@v3
       - name: Creating GitHub Organization Repository
